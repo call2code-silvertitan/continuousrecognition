@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var http = require('http');
 var formidable = require('formidable');
+var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
+var fs = require('fs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -43,19 +45,15 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-http.createServer(function (req, res) {
-  if (req.url == '/fileupload') {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-      res.write('File uploaded');
-      res.end();
-    });
-  } else {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-    res.write('<input type="file" name="filetoupload"><br>');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    return res.end();
-  }
-}).listen(8080);
+const visualRecognition = new VisualRecognitionV3({
+	// Set the endpoint
+	url: 'https://gateway.watsonplatform.net/visual-recognition/api',
+	version: '2018-03-19',
+	iam_apikey: '7mHswLxu6mC5bEg8fPeEJ8S2d-1BLReUDN7LS7zf4R8H'
+});
+
+function redo() {
+  window.location.replace('localhost:8080');
+}
+
+http.createServer(app).listen(8080);

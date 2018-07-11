@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p><%= result %></p>
+    <p><%= result2 %></p>
+    <button onclick="redo()">Try Again!</button>
+  </body>
+  <script>
+  	function redo() {
+  		console.log('hello');
+  		window.location.href='/';
+	}
+  </script>
+</html>
